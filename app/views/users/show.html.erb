@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="col-xs-4">
+      <%= image_tag @user.avatar_url, :class => "img-style" %>
+  </div>
+
+  <div class="col-xs-8">
+    <h2><%= @user.email %></h2>
+    <h3>Member Since: <%= @user.created_at.strftime("%B %d, %Y") %></h3>
+    <h4><%= @user.reviews.count %> Total Reviews</h4>
+    <h4><%= @user.reviews.where(rating: '5_stars').count %> Total
+        <img class="star" src="https://s3.amazonaws.com/yelpdemo/stars/star-on.png">
+        <img class="star" src="https://s3.amazonaws.com/yelpdemo/stars/star-on.png">
+        <img class="star" src="https://s3.amazonaws.com/yelpdemo/stars/star-on.png">
+        <img class="star" src="https://s3.amazonaws.com/yelpdemo/stars/star-on.png">
+        <img class="star" src="https://s3.amazonaws.com/yelpdemo/stars/star-on.png">
+    Reviews</h4>
+  </div>
+  <br /><br /><br /><br />
+  <br /><br /><br /><br />
+  <br /><br /><br /><br />
+  <br />
+</div>
+<div class="clear"></div>
+
+<h1 class="bar2">My Reviews</h1>
+  <div class="center">
+    <div class="row">
+      <br /><br />
+      <% @user.reviews.each do |review| %>
+        <div class="col-xs-12 col-sm-6">
+          <blockquote>
+            <h4 style="text-align:left"><%= link_to review.comment, review.politician %></h4>
+            <small style="text-align:right">Posted for <%= link_to review.politician.first_name + " " + review.politician.last_name, review.politician %> at <%= review.created_at.strftime("%B %d, %Y") %></small>
+          </blockquote>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="clear"></div>
+
+<h1 class="bar">Politician Profiles I've Created</h1>
+  <br />
+    <div class="center">
+      <div class="row">
+        <% @user.politicians.each do |politician| %>
+           <div class="col-xs-6 col-md-3">
+             <div class="img-thumbnail">
+               <%= link_to image_tag(politician.image_url), politician %>
+               <div class="caption">
+                 <h3><%= link_to politician.first_name + " " + politician.last_name, politician %></h3>
+                 <div class="star-rating" data-score= <%= @avg_rating %> ></div>
+                 <h4><%= politician.party %></h4>
+                 <h4><%= politician.occupation %></h4>
+                 <h4><%= politician.country %></h4>
+                 <h4><%= politician.area %></h4>
+               </div>
+             </div>
+           </div>
+        <% end %>
+      </div>
+    </div>

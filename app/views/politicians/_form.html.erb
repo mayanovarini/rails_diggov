@@ -1,0 +1,52 @@
+<div class="marginall">
+  <%= form_for(@politician) do |f| %>
+    <% if @politician.errors.any? %>
+      <div id="error_explanation" class="alert alert-danger alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4><%= pluralize(@politician.errors.count, "error") %> prohibited this politician from being saved:</h4>
+
+        <ul>
+        <% @politician.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :first_name %><br>
+      <%= f.text_field :first_name, class: "form-control", placeholder: "Sadiq" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :last_name %><br>
+      <%= f.text_field :last_name, class: "form-control", placeholder: "Khan" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :party %><br>
+      <%= f.text_field :party, class: "form-control", placeholder: "Labour Party" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :occupation %><br>
+      <%= f.text_field :occupation, class: "form-control", placeholder: "City Mayor" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :country %><br>
+      <%= f.text_field :country, class: "form-control", placeholder: "United Kingdom" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :area %><br>
+      <%= f.text_field :area, class: "form-control", placeholder: "London" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :wikipage %><br>
+      <%= f.text_field :wikipage, class: "form-control", placeholder: "https://en.wikipedia.org/wiki/Sadiq_Khan" %>
+    </div>
+    <div class="form-group">
+     <%= f.label :image %><br>
+     <%= f.file_field :image, class: "form-control" %>
+   </div>
+    <div class="actions">
+      <%= f.submit class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

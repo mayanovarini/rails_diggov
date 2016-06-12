@@ -1,0 +1,109 @@
+<div class="marginall">
+  <div class="row">
+    <div class="col-md-4">
+      <%= image_tag @politician.image_url %>
+
+      <h2 class="name">
+        <%= @politician.first_name %>
+      </h2>
+
+      <h2 class="name">
+        <%= @politician.last_name %>
+      </h2>
+
+      <div class="star-rating" data-score= <%= @avg_rating %> ></div>
+      </br>
+      <p>(<%= "#{@reviews.length} reviews" %>)</p>
+
+      <p class="font">
+        <strong>Party:</strong>
+        <div class="details">
+          <%= @politician.party %>
+        </div>
+      </p>
+
+      <p class="font">
+        <strong>Occupation:</strong>
+        <div class="details">
+          <%= @politician.occupation %>
+        </div>
+      </p>
+
+      <p class="font">
+        <strong>Country:</strong>
+        <div class="details">
+          <%= @politician.country %>
+        </div>
+      </p>
+
+      <p class="font">
+        <strong>Area:</strong>
+        <div class="details">
+          <%= @politician.area %>
+        </div>
+      </p>
+
+      <p class="font">
+          <strong><%= link_to "Wikipage", @politician.wikipage, :target => "_blank" %></strong>
+      </p>
+
+      </br>
+      </br>
+      <%= link_to "Write a Review", new_politician_review_path(@politician), class: "btn btn-primary" %>
+      <%= link_to 'Edit', edit_politician_path(@politician), class: "btn btn-link" %> |
+      <%= link_to 'Back', politicians_path, class: "btn btn-link" %>
+
+    </div>
+
+    <div class="col-md-8">
+      <% if @reviews.blank? %>
+        <h3 class="no-review">No reviews yet. Be the first to write one!</h3>
+      <% else %>
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="col-md-3"></th>
+              <th class="col-md-9"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @reviews.each do |review| %>
+              <tr>
+                <td>
+                  <h4>
+                    <%= "#{review.user.first_name.capitalize} #{review.user.last_name.capitalize}" %>
+                  </h4>
+                  <p><%= review.created_at.strftime("%B %d, %Y") %></p>
+                </td>
+
+                <td>
+                  <div class="star-rating" data-score= <%= review.rating %> ></div>
+                  <br />
+                  <p><%= h(review.comment).gsub(/\n/, '<br/>').html_safe %></p>
+
+                  <% if user_signed_in? %>
+                    <% if (review.user == current_user) || (current_user.admin?) %>
+                      <%= link_to "Edit", edit_politician_review_path(@politician, review) %> |
+                      <%= link_to "Delete", politician_review_path(@politician, review), method: :delete %>
+                    <% end %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+    </div>
+  </div>
+
+  <script>
+    $('.star-rating').raty({
+      path: 'https://s3.amazonaws.com/yelpdemo/stars',
+      readOnly: true,
+      score: function() {
+        return $(this).attr('data-score');
+      }
+    });
+  </script>
+</div>
