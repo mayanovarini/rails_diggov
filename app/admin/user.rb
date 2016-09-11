@@ -13,5 +13,7 @@ permit_params :id
 #   permitted
 # end
 
-
+filter :admin
+filter :created_at
+filter :last_sign_in_at
 end
