@@ -19,4 +19,8 @@ class Politician < ActiveRecord::Base
       @reviews.average(:rating).round(2)
     end
   end
+
+  def name
+    first_name + " " + last_name
+  end
 end

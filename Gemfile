@@ -26,6 +26,12 @@ gem "mini_magick"
 
 gem 'devise' #to allow users sign in and out
 
+gem 'activeadmin', github: 'activeadmin'
+
+gem 'active_skin'
+
+gem 'country_select'
+
 gem 'carrierwave'
 
 gem "fog-aws"
