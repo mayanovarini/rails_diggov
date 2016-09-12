@@ -14,5 +14,4 @@ ActiveAdmin.register Review do
   # end
 
   filter :rating
-  filter :politician
 end
